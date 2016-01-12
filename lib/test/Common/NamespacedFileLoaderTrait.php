@@ -15,73 +15,24 @@ namespace Test\Common;
 
 trait NamespacedFileLoaderTrait
 {
-	/**
-	 * Default path.
-	 *
-	 * @var string
-	 */
-
 	protected $path;
-
-	/**
-	 * File extension.
-	 *
-	 * @var string
-	 */
-
 	protected $extension = '.php';
-
-	/**
-	 * Namespaces.
-	 *
-	 * @var array
-	 */
-
 	protected $namespaces = [];
-
-	/**
-	 * Sets the defaut path.
-	 */
-
+    
 	public function setPath($path)
 	{
 		$this->path = $path;
 	}
 
-	/**
-	 * Sets the extension.
-	 *
-	 * @access  public
-	 * @param   string  $extension  Extension
-	 */
-
 	public function setExtension($extension)
 	{
 		$this->extension = $extension;
 	}
-
-	/**
-	 * Registers a namespace.
-	 *
-	 * @access  public
-	 * @param   string  $namespace  Namespace name
-	 * @param   string  $path       Namespace path
-	 */
-
+    
 	public function registerNamespace($namespace, $path)
 	{
 		$this->namespaces[$namespace] = $path;
 	}
-
-	/**
-	 * Returns the path to the file.
-	 *
-	 * @access  protected
-	 * @param   string     $file       File name
-	 * @param   string     $extension  File extension
-	 * @param   string     $suffix     Path suffix
-	 * @return  string
-	 */
 
 	protected function getFilePath($file, $extension = null, $suffix = null)
 	{
@@ -116,16 +67,6 @@ trait NamespacedFileLoaderTrait
 
 		return $path . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $file) . ($extension ?: $this->extension);
 	}
-
-	/**
-	 * Returns an array of cascading file paths.
-	 *
-	 * @access  protected
-	 * @param   string     $file       File name
-	 * @param   string     $extension  File extension
-	 * @param   string     $suffix     Path suffix
-	 * @return  array
-	 */
 
 	protected function getCascadingFilePaths($file, $extension = null, $suffix = null)
 	{

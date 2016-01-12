@@ -8,25 +8,10 @@ class Router
 {
     protected $routes;
 
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   \mako\http\routing\Routes  $routes   Routes
-	 */
-
 	public function __construct(Routes $routes)
 	{
 		$this->routes  = $routes;
 	}
-    
-	/**
-	 * Returns a route with a closure action that redirects to the correct URL.
-	 *
-	 * @access  protected
-	 * @param   string                    $requestPath  The requested path
-	 * @return  \mako\http\routing\Route
-	 */
 
 	protected function redirectRoute($requestPath)
 	{
@@ -45,14 +30,6 @@ class Router
 		});
 	}
 
-	/**
-	 * Returns an array of all allowed request methods for the requested route.
-	 *
-	 * @access  protected
-	 * @param   string     $requestPath  The requested path
-	 * @return  array
-	 */
-
 	protected function getAllowedMethodsForMatchingRoutes($requestPath)
 	{
 		$methods = [];
@@ -68,14 +45,6 @@ class Router
 		return array_unique($methods);
 	}
 
-	/**
-	 * Returns a route with a closure action that sets the allow header.
-	 *
-	 * @access  protected
-	 * @param   string                    $requestPath  The requested path
-	 * @return  \mako\http\routing\Route
-	 */
-
 	protected function optionsRoute($requestPath)
 	{
 		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
@@ -85,16 +54,6 @@ class Router
 			$response->header('allow', implode(',', $allowedMethods));
 		});
 	}
-
-	/**
-	 * Returns TRUE if the route matches the request path and FALSE if not.
-	 *
-	 * @access  protected
-	 * @param   \mako\http\routing\Route  $route       Route
-	 * @param   string                    $path        Request path
-	 * @param   array                     $parameters  Parameters
-	 * @return  boolean
-	 */
 
 	protected function matches(Route $route, $path, array &$parameters = [])
 	{
@@ -113,14 +72,6 @@ class Router
 
 		return false;
 	}
-
-	/**
-	 * Matches and returns the appropriate route along with its parameters.
-	 *
-	 * @access  public
-	 * @param   \mako\http\Request  $request  Request
-	 * @return  array
-	 */
 
 	public function route(Request $request)
 	{

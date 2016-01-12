@@ -1,12 +1,12 @@
 <?php
 namespace app\controllers;
 
-use Test\Http\Controller;
+use Test\Application\Controller;
 use Test\View\ViewFactory;
 
-class Index extends Controller
+class Home extends Controller
 {
-	public function welcome(ViewFactory $view)
+	public function index(ViewFactory $view)
     {
         return $view->render('home');
     }

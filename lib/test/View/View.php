@@ -1,7 +1,7 @@
 <?php
 namespace Test\View;
 
-//use mako\view\renderers\RendererInterface;
+use Test\View\RendererInterface;
 
 class View
 {

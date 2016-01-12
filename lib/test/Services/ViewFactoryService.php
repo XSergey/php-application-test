@@ -25,7 +25,7 @@ class ViewFactoryService extends Service
 
 			$factory->registerRenderer('.tpl.php', function() use ($applicationPath, $fileSystem)
 			{
-				new Template($fileSystem, $applicationPath . '/storage/cache/views');
+				return new Template($fileSystem, dirname($applicationPath) . '/storage/cache/views');
 			});
 
 			// Return factory instance

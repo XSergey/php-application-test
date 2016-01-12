@@ -9,90 +9,26 @@ namespace Test\Http;
 
 use Closure;
 
-//use mako\common\FunctionParserTrait;
 use Test\Http\Request;
 use Test\Http\Response;
 use Test\Http\Route;
 use Test\Container;
 
-/**
- * Route dispatcher.
- *
- * @author  Frederic G. Østby
- */
-
 class Dispatcher
 {
-	//use FunctionParserTrait;
-
-	/**
-	 * Request.
-	 *
-	 * @var \mako\http\Request
-	 */
-
 	protected $request;
-
-	/**
-	 * Response.
-	 *
-	 * @var \mako\http\Response
-	 */
 
 	protected $response;
 
-	/**
-	 * Route filters.
-	 *
-	 * @var \mako\http\routing\Filters
-	 */
-
 	protected $filters;
-
-
-	/**
-	 * Route to be dispatched.
-	 *
-	 * @var \mako\http\routing\Route
-	 */
 
 	protected $route;
 
-	/**
-	 * Route parameters.
-	 *
-	 * @var array
-	 */
-
 	protected $parameters;
-
-	/**
-	 * IoC container instance.
-	 *
-	 * @var \mako\syringe\Container
-	 */
 
 	protected $container;
 
-	/**
-	 * Should the after filters be skipped?
-	 *
-	 * @var boolean
-	 */
-
 	protected $skipAfterFilters = false;
-
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   \mako\http\Request          $request     Request instance
-	 * @param   \mako\http\Response         $response    Response instance
-	 * @param   \mako\http\routing\Filters  $filters     Filter collection
-	 * @param   \mako\http\routing\Route    $route       The route we're dispatching
-	 * @param   array                       $parameters  Route parameters
-	 * @param   \mako\syringe\Container     $container   IoC container
-	 */
 
 	public function __construct(Request $request, Response $response, $filters = null, Route $route, array $parameters = [], Container $container = null)
 	{
@@ -109,14 +45,6 @@ class Dispatcher
 		$this->container = $container ?: new Container;
 	}
 
-	/**
-	 * Resolves the filter.
-	 *
-	 * @access  protected
-	 * @param   string         $filter  Filter
-	 * @return  array|Closure
-	 */
-
 	protected function resolveFilter($filter)
 	{
 		$filter = $this->filters->get($filter);
@@ -128,14 +56,6 @@ class Dispatcher
 
 		return $filter;
 	}
-
-	/**
-	 * Executes a filter.
-	 *
-	 * @access  protected
-	 * @param   string|\Closure  $filter  Filter
-	 * @return  mixed
-	 */
 
 	protected function executeFilter($filter)
 	{
@@ -152,13 +72,6 @@ class Dispatcher
 		return $this->container->call($filter, $parameters);
 	}
 
-	/**
-	 * Executes before filters.
-	 *
-	 * @access  protected
-	 * @return  mixed
-	 */
-
 	protected function beforeFilters()
 	{
 		foreach($this->route->getBeforeFilters() as $filter)
@@ -172,12 +85,6 @@ class Dispatcher
 		}
 	}
 
-	/**
-	 * Executes after filters.
-	 *
-	 * @access  protected
-	 */
-
 	protected function afterFilters()
 	{
 		foreach($this->route->getAfterFilters() as $filter)
@@ -186,24 +93,10 @@ class Dispatcher
 		}
 	}
 
-	/**
-	 * Dispatch a closure controller action.
-	 *
-	 * @access  protected
-	 * @param   \Closure   $closure  Closure
-	 */
-
 	protected function dispatchClosure(Closure $closure)
 	{
 		$this->response->body($this->container->call($closure, $this->parameters));
 	}
-
-	/**
-	 * Dispatch a controller action.
-	 *
-	 * @access  protected
-	 * @param   string     $controller  Controller
-	 */
 
 	protected function dispatchController($controller)
 	{
@@ -242,13 +135,6 @@ class Dispatcher
 			$this->skipAfterFilters = true;
 		}
 	}
-
-	/**
-	 * Dispatches the route and returns the response.
-	 *
-	 * @access  public
-	 * @return  \mako\http\Response
-	 */
 
 	public function dispatch()
 	{

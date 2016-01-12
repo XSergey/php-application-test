@@ -12,83 +12,23 @@ use Test\Http\Request;
 use Test\Security\Signer;
 //use mako\view\View;
 
-/**
- * HTTP response.
- *
- * @author  Frederic G. Østby
- */
-
 class Response
 {
-	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-
 	protected $request;
-
-	/**
-	 * Signer instance.
-	 *
-	 * @var \mako\security\Signer
-	 */
 
 	protected $signer;
 
-	/**
-	 * Response body.
-	 *
-	 * @var mixed
-	 */
-
 	protected $body;
 
-	/**
-	 * Response content type.
-	 *
-	 * @var string
-	 */
-
-	protected $contentType = 'text/html';
-
-	/**
-	 * Response charset.
-	 *
-	 * @var string
-	 */
+    protected $contentType = 'text/html';
 
 	protected $charset;
 
-	/**
-	 * Status code.
-	 *
-	 * @var int
-	 */
-
 	protected $statusCode = 200;
-
-	/**
-	 * Response headers.
-	 *
-	 * @var array
-	 */
 
 	protected $headers = [];
 
-	/**
-	 * Cookies.
-	 *
-	 * @var array
-	 */
-
 	protected $cookies = [];
-
-	/**
-	 * Compress output?
-	 *
-	 * @var boolean
-	 */
 
 	protected $outputCompression = false;
 

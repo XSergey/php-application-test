@@ -5,213 +5,55 @@ use Test\Common\Arr;
 
 class Request
 {
-	/**
-	 * Get data
-	 *
-	 * @var array
-	 */
-
 	protected $get;
-
-	/**
-	 * Post data
-	 *
-	 * @var array
-	 */
 
 	protected $post;
 
-	/**
-	 * Cookie data.
-	 *
-	 * @var array
-	 */
-
 	protected $cookies;
 
-	/**
-	 * File data.
-	 *
-	 * @var array
-	 */
-
-	protected $files;
-
-	/**
-	 * Server info.
-	 *
-	 * @var array
-	 */
+    protected $files;
 
 	protected $server;
 
-	/**
-	 * Raw request body.
-	 *
-	 * @var string
-	 */
-
 	protected $body;
-
-	/**
-	 * Signer instance.
-	 *
-	 * @var \mako\security\Signer
-	 */
 
 	protected $signer;
 
-	/**
-	 * Parsed request body.
-	 *
-	 * @var array
-	 */
-
 	protected $parsedBody;
-
-	/**
-	 * Request headers.
-	 *
-	 * @var array
-	 */
 
 	protected $headers = [];
 
-	/**
-	 * Array of acceptable content types.
-	 *
-	 * @var array
-	 */
-
 	protected $acceptableContentTypes;
-
-	/**
-	 * Array of acceptable languages.
-	 *
-	 * @var array
-	 */
 
 	protected $acceptableLanguages;
 
-	/**
-	 * Array of acceptable charsets.
-	 *
-	 * @var array
-	 */
-
 	protected $acceptableCharsets;
 
-	/**
-	 * Array of acceptable encodings.
-	 *
-	 * @var array
-	 */
-
 	protected $acceptableEncodings;
-
-	/**
-	 * Array of trusted proxy IP addresses.
-	 *
-	 * @var array
-	 */
-
+    
 	protected $trustedProxies;
-
-	/**
-	 * Ip address of the client that made the request.
-	 *
-	 * @var string
-	 */
 
 	protected $ip;
 
-	/**
-	 * Is this an Ajax request?
-	 *
-	 * @var boolean
-	 */
-
-	protected $isAjax;
-
-	/**
-	 * Was the request made using HTTPS?
-	 *
-	 * @var boolean
-	 */
+    protected $isAjax;
 
 	protected $isSecure;
 
-	/**
-	 * Is PHP running as a CGI program?
-	 *
-	 * @var boolean
-	 */
-
 	protected $isCGI;
 
-	/**
-	 * Base URL of the request.
-	 *
-	 * @var string
-	 */
-
-	protected $baseURL;
-
-	/**
-	 * Holds the request path.
-	 *
-	 * @var string
-	 */
+    protected $baseURL;
 
 	protected $path;
 
-	/**
-	 * Request language.
-	 *
-	 * @var string
-	 */
-
-	protected $language;
-
-	/**
-	 * Request language prefix.
-	 *
-	 * @var string
-	 */
+    protected $language;
 
 	protected $languagePrefix;
 
-	/**
-	 * Which request method was used?
-	 *
-	 * @var string
-	 */
-
 	protected $method;
-
-	/**
-	 * The actual request method that was used.
-	 *
-	 * @var string
-	 */
 
 	protected $realMethod;
 
-	/**
-	 * The route that matched the request.
-	 *
-	 * @var \mako\http\routing\Route
-	 */
-
 	protected $route;
-
-	/**
-	 * Constructor.
-	 *
-	 * @access  public
-	 * @param   array                  $request  Request data and options
-	 * @param   \mako\security\Signer  $signer   Signer instance used to validate signed cookies
-	 */
 
 	public function __construct(array $request = [], Signer $signer = null)
 	{

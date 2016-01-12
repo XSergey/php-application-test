@@ -1,29 +1,8 @@
 <?php
-
-/**
- * @copyright  Frederic G. Østby
- * @license    http://www.makoframework.com/license
- */
-
 namespace Test;
-
-/**
- * Class inspector.
- *
- * @author  Frederic G. Østby
- */
 
 class ClassInspector
 {
-	/**
-	 * Returns an array of all traits used by a class.
-	 *
-	 * @access  public
-	 * @param   string|object  $class     Class name or class instance
-	 * @param   boolean        $autoload  Autoload
-	 * @return  array
-	 */
-
 	public static function getTraits($class, $autoload = true)
 	{
 		// Fetch all traits used by a class and its parents

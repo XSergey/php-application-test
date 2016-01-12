@@ -16,8 +16,7 @@ require_once dirname(__DIR__).'/lib/Test/Http/Router.php';
 require_once dirname(__DIR__).'/lib/Test/Http/Routes.php';
 require_once dirname(__DIR__).'/lib/Test/Http/Route.php';
 require_once dirname(__DIR__).'/lib/Test/Http/Dispatcher.php';
-require_once dirname(__DIR__).'/lib/Test/Http/Controller.php';
-require_once dirname(__DIR__).'/lib/Test/Http/Controller.php';
+require_once dirname(__DIR__).'/lib/Test/Application/Controller/Controller.php';
 
 require_once dirname(__DIR__).'/lib/Test/Security/Signer.php';
 
@@ -33,8 +32,9 @@ require_once dirname(__DIR__).'/lib/Test/View/View.php';
 require_once dirname(__DIR__).'/lib/Test/View/RendererInterface.php';
 require_once dirname(__DIR__).'/lib/Test/View/Renderer.php';
 require_once dirname(__DIR__).'/lib/Test/View/Template.php';
+require_once dirname(__DIR__).'/lib/Test/View/Compiler.php';
 
 require_once dirname(__DIR__).'/lib/Test/Application/Application.php';
 
-require_once dirname(__DIR__).'/app/controllers/Index.php';
+require_once dirname(__DIR__).'/app/Http/Controllers/Home.php';
 

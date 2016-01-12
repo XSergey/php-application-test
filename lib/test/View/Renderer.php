@@ -3,7 +3,7 @@
 namespace Test\View;
 
 //use mako\view\renderers\EscaperTrait;
-//use mako\view\renderers\RendererInterface;
+use Test\View\RendererInterface;
 
 class Renderer implements RendererInterface
 {

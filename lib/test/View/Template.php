@@ -2,7 +2,7 @@
 namespace Test\View;
 
 use Test\FileSystem;
-use Test\View\Template as Compiler;
+use Test\View\Compiler;
 use Test\View\Renderer;
 
 class Template extends Renderer

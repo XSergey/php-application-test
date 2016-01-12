@@ -13,29 +13,9 @@ class Container
 {
     protected $hints = [];
 
-	/**
-	 * Aliases.
-	 *
-	 * @var array
-	 */
-
 	protected $aliases = [];
 
-	/**
-	 * Singleton instances.
-	 *
-	 * @var array
-	 */
-
 	protected $instances = [];
-
-	/**
-	 * Parse the hint parameter.
-	 *
-	 * @access  protected
-	 * @param   string|array  $hint  Type hint or array contaning both type hint and alias
-	 * @return  array
-	 */
 
 	protected function parseHint($hint)
 	{
@@ -55,15 +35,6 @@ class Container
 		return compact('name', 'alias');
 	}
 
-	/**
-	 * Register a type hint.
-	 *
-	 * @access  public
-	 * @param   string|array     $hint       Type hint or array contaning both type hint and alias
-	 * @param   string|\Closure  $class      Class name or closure
-	 * @param   boolean          $singleton  Should we return the same instance every time?
-	 */
-
 	public function register($hint, $class, $singleton = false)
 	{
 		$hint = $this->parseHint($hint);
@@ -71,41 +42,17 @@ class Container
 		$this->hints[$hint['name']] = ['class' => $class, 'singleton' => $singleton, 'alias' => $hint['alias']];
 	}
 
-	/**
-	 * Register a type hint and return the same instance every time.
-	 *
-	 * @access  public
-	 * @param   string|array     $hint   Type hint or array contaning both type hint and alias
-	 * @param   string|\Closure  $class  Class name or closure
-	 */
-
 	public function registerSingleton($hint, $class)
 	{
 		$this->register($hint, $class, true);
 	}
 
-	/**
-	 * Register a singleton instance.
-	 *
-	 * @access  public
-	 * @param   string|array  $hint      Type hint or array contaning both type hint and alias
-	 * @param   object        $instance  Class instance
-	 */
-
-	public function registerInstance($hint, $instance)
+    public function registerInstance($hint, $instance)
 	{
 		$hint = $this->parseHint($hint);
 
 		$this->instances[$hint['name']] = $instance;
 	}
-
-	/**
-	 * Return the name based on its alias. If no alias exists then we'll just return the value we received.
-	 *
-	 * @access  protected
-	 * @param   string     $alias  Alias
-	 * @return  string
-	 */
 
 	protected function resolveAlias($alias)
 	{
@@ -114,27 +61,10 @@ class Container
 		return isset($this->aliases[$alias]) ? $this->aliases[$alias] : $alias;
 	}
 
-	/**
-	 * Resolve a type hint.
-	 *
-	 * @access  protected
-	 * @param   string     $hint  Type hint
-	 * @return  string
-	 */
-
 	protected function resolveHint($hint)
 	{
 		return isset($this->hints[$hint]) ? $this->hints[$hint]['class'] : $hint;
 	}
-
-	/**
-	 * Merges the provided parameters with the reflection parameters.
-	 *
-	 * @access  public
-	 * @param   array   $reflectionParameters  Reflection parameters
-	 * @param   array   $providedParameters    Provided parameters
-	 * @return  array
-	 */
 
 	protected function mergeParameters(array $reflectionParameters, array $providedParameters)
 	{
@@ -168,14 +98,6 @@ class Container
 		return array_replace($associativeReflectionParameters, $associativeProvidedParameters);
 	}
 
-	/**
-	 * Returns the name of the declaring function.
-	 *
-	 * @access  protected
-	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
-	 * @return  string
-	 */
-
 	protected function getDeclaringFunction(ReflectionParameter $parameter)
 	{
 		$declaringFunction = $parameter->getDeclaringFunction();
@@ -187,14 +109,6 @@ class Container
 
 		return $parameter->getDeclaringClass()->getName() . '::' . $declaringFunction->getName();
 	}
-
-	/**
-	 * Resolve a parameter.
-	 *
-	 * @access  protected
-	 * @param   \ReflectionParameter  $parameter  ReflectionParameter instance
-	 * @return  mixed
-	 */
 
 	protected function resolveParameter(ReflectionParameter $parameter)
 	{
@@ -216,15 +130,6 @@ class Container
 
 		//throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
 	}
-
-	/**
-	 * Resolve parameters.
-	 *
-	 * @access  public
-	 * @param   array   $reflectionParameters  Reflection parameters
-	 * @param   array   $providedParameters    Provided Parameters
-	 * @return  array
-	 */
 
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters)
 	{
@@ -252,29 +157,12 @@ class Container
 		return $parameters;
 	}
 
-	/**
-	 * Checks if a class is container aware.
-	 *
-	 * @access  protected
-	 * @param   object     $class  Class instance
-	 * @return  boolean
-	 */
-
 	protected function isContainerAware($class)
 	{
 		$traits = ClassInspector::getTraits($class);
 
 		return isset($traits['Test\ContainerAwareTrait']);
 	}
-
-	/**
-	 * Creates a class instance using a factory closure.
-	 *
-	 * @access  public
-	 * @param   \Closure  $factory     Class name or closure
-	 * @param   array     $parameters  Constructor parameters
-	 * @return  object
-	 */
 
 	protected function closureFactory(Closure $factory, array $parameters)
 	{
@@ -291,15 +179,6 @@ class Container
 
 		return $instance;
 	}
-
-	/**
-	 * Creates a class instance using reflection.
-	 *
-	 * @access  public
-	 * @param   string  $class       Class name or closure
-	 * @param   array   $parameters  Constructor parameters
-	 * @return  object
-	 */
 
 	protected function reflectionFactory($class, array $parameters)
 	{
@@ -336,15 +215,6 @@ class Container
 		return $instance;
 	}
 
-	/**
-	 * Creates a class instance.
-	 *
-	 * @access  public
-	 * @param   string|\Closure  $class       Class name or closure
-	 * @param   array            $parameters  Constructor parameters
-	 * @return  object
-	 */
-
 	protected function factory($class, array $parameters = [])
 	{
 		// Instantiate class
@@ -369,30 +239,12 @@ class Container
 		return $instance;
 	}
 
-	/**
-	 * Checks if a class is registered in the container.
-	 *
-	 * @access  public
-	 * @param   string   $class  Class name
-	 * @return  boolean
-	 */
-
-	public function has($class)
+    public function has($class)
 	{
 		$class = $this->resolveAlias($class);
 
 		return (isset($this->hints[$class]) || isset($this->instances[$class]));
 	}
-
-	/**
-	 * Returns a class instance.
-	 *
-	 * @access  public
-	 * @param   string   $class           Class name
-	 * @param   array    $parameters      Constructor parameters
-	 * @param   boolean  $reuseInstance   Reuse existing instance?
-	 * @return  object
-	 */
 
 	public function get($class, array $parameters = [], $reuseInstance = true)
 	{
@@ -422,30 +274,12 @@ class Container
 		return $instance;
 	}
 
-	/**
-	 * Returns a fresh class instance even if the class is registered as a singleton.
-	 *
-	 * @access  public
-	 * @param   string  $class       Class name
-	 * @param   array   $parameters  Constructor parameters
-	 * @return  object
-	 */
-
-	public function getFresh($class, array $parameters = [])
+    public function getFresh($class, array $parameters = [])
 	{
 		return $this->get($class, $parameters, false);
 	}
 
-	/**
-	 * Execute a callable and inject its dependencies.
-	 *
-	 * @access  public
-	 * @param   callable  $callable    Callable
-	 * @param   array     $parameters  Parameters
-	 * @return  object
-	 */
-
-	public function call($callable, array $parameters = [])
+    public function call($callable, array $parameters = [])
 	{
 		if($callable instanceof Closure)
 		{
