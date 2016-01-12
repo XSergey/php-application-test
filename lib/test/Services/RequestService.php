@@ -19,7 +19,7 @@ class RequestService extends Service
 			return $request;
 		};
 
-		$this->container->registerSingleton(['Test\Http\Request','request'], new Request());
+		$this->container->registerSingleton(['Test\Http\Request','request'], $requestBuild);
 	
     }
 }

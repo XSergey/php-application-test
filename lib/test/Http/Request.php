@@ -1,6 +1,8 @@
 <?php
 namespace Test\Http;
 
+use Test\Common\Arr;
+
 class Request
 {
 	/**
@@ -527,7 +529,24 @@ class Request
 
 	public function get($key = null, $default = null)
 	{
-		return ($key === null) ? $this->get : Arr::get($this->get, $key, $default);
+		return ($key === null) ? $this->get : $this->getArr($this->get, $key, $default);
+	}
+    
+    public function getArr(array $array, $path, $default = null)
+	{
+		$segments = explode('.', $path);
+
+		foreach($segments as $segment)
+		{
+			if(!is_array($array) || !isset($array[$segment]))
+			{
+				return $default;
+			}
+
+			$array = $array[$segment];
+		}
+
+		return $array;
 	}
 
 	/**

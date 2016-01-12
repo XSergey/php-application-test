@@ -141,9 +141,9 @@ return
             'core' =>
             [
                 'Test\Services\RequestService',
-                //'Test\Services\ResponseService',
-                //'mako\application\services\SignerService',
-                //'Test\Services\RouteService',
+                'Test\Services\ResponseService',
+                'Test\Services\SignerService',
+                'Test\Services\RouteService',
                 //'mako\application\services\URLBuilderService',
                 //'mako\application\services\LoggerService',
                 //'mako\application\services\ViewFactoryService',

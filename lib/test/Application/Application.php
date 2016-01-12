@@ -4,7 +4,8 @@ namespace Test;
 use Test\Container;
 use Test\Config;
 use Test\FileSystem;
-use Test\Http\Request;
+use Test\Http\Router;
+use Test\Http\Dispatcher;
 
 class Application
 {
@@ -30,7 +31,16 @@ class Application
     {
         ob_start();
         $request = $this->container->get('request');
-        var_dump($this->container);
+        
+        list($filters, $routes) = $this->loadRouting();
+        
+		// Route the request
+
+		list($route, $parameters) = (new Router($routes))->route($request);
+        
+        // Dispatch the request and send the response
+
+		(new Dispatcher($request, $this->container->get('response'), $filters, $route, $parameters, $this->container))->dispatch()->send();
     }
     
     protected function boot()
@@ -88,7 +98,6 @@ class Application
     {
         foreach($this->config->get('application.services.'.$type) as $service)
         {
-            //var_dump($service);
             (new $service($this->container))->register();
         }
     }
@@ -105,6 +114,33 @@ class Application
     
     public function getEnvironment()
 	{
-		return getenv('MAKO_ENV') ?: null;
+		return getenv('PHP_APPLICATION_ENV') ?: null;
+	}
+    
+    protected function loadRouting()
+	{
+		return [$this->loadFilters(), $this->loadRoutes()];
+	}
+    
+    protected function loadFilters()
+	{
+		return [];
+	}
+    
+    protected function loadRoutes()
+	{
+		$loader = function($app, $container, $routes)
+		{
+			include $this->applicationPath . '/Http/routes.php';
+
+			return $routes;
+		};
+
+		return $loader($this, $this->container, $this->container->get('routes'));
+	}
+    
+    public function getCharset()
+	{
+		return $this->charset;
 	}
 }
