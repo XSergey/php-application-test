@@ -2,11 +2,12 @@
 namespace app\controllers;
 
 use Test\Http\Controller;
+use Test\View\ViewFactory;
 
 class Index extends Controller
 {
-	public function welcome()
+	public function welcome(ViewFactory $view)
     {
-        echo "Hello Man! We did it!";
+        return $view->render('home');
     }
 }

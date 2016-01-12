@@ -214,7 +214,7 @@ class Container
 
 		// We have exhausted all our options. All we can do now is throw an exception
 
-		throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
+		//throw new RuntimeException(vsprintf("%s(): Unable to resolve the [ $%s ] parameter of [ %s ].", [__METHOD__, $parameter->getName(), $this->getDeclaringFunction($parameter)]));
 	}
 
 	/**

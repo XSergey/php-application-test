@@ -26,8 +26,13 @@ require_once dirname(__DIR__).'/lib/Test/Services/RequestService.php';
 require_once dirname(__DIR__).'/lib/Test/Services/ResponseService.php';
 require_once dirname(__DIR__).'/lib/Test/Services/RouteService.php';
 require_once dirname(__DIR__).'/lib/Test/Services/SignerService.php';
+require_once dirname(__DIR__).'/lib/Test/Services/ViewFactoryService.php';
 
-
+require_once dirname(__DIR__).'/lib/Test/View/ViewFactory.php';
+require_once dirname(__DIR__).'/lib/Test/View/View.php';
+require_once dirname(__DIR__).'/lib/Test/View/RendererInterface.php';
+require_once dirname(__DIR__).'/lib/Test/View/Renderer.php';
+require_once dirname(__DIR__).'/lib/Test/View/Template.php';
 
 require_once dirname(__DIR__).'/lib/Test/Application/Application.php';
 

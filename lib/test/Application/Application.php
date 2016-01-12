@@ -18,7 +18,10 @@ class Application
     public function __construct($applicationPath)
     {
         $this->applicationPath = $applicationPath;
-        $this->boot();
+        
+        $this->initialize();
+        $this->configure();
+        $this->registerServices();
     }
     
     public static function create($applicationPath)
@@ -33,21 +36,9 @@ class Application
         $request = $this->container->get('request');
         
         list($filters, $routes) = $this->loadRouting();
-        
-		// Route the request
-
 		list($route, $parameters) = (new Router($routes))->route($request);
         
-        // Dispatch the request and send the response
-
 		(new Dispatcher($request, $this->container->get('response'), $filters, $route, $parameters, $this->container))->dispatch()->send();
-    }
-    
-    protected function boot()
-    {
-        $this->initialize();
-        $this->configure();
-        $this->registerServices();
     }
     
     protected function initialize()
@@ -63,9 +54,7 @@ class Application
     protected function configure()
     {
         $config = $this->config->get('application');
-
-		// Set internal charset
-
+        
 		$this->charset = $config['charset'];
 
 		mb_language('uni');
@@ -74,26 +63,16 @@ class Application
 
 		mb_internal_encoding($this->charset);
 
-		// Set default timezone
-
 		date_default_timezone_set($config['timezone']);
-
-		// Set locale information
 
 		$this->setLanguage($config['default_language']);
     }
     
     protected function registerServices()
     {
-        $this->registerAppServices();
-        //or for example other like CLI services...
+        $this->serviceRegistrar('core');
     }
-        
-    protected function registerAppServices()
-    {
-		$this->serviceRegistrar('core');
-    }
-    
+     
     protected function serviceRegistrar($type)
     {
         foreach($this->config->get('application.services.'.$type) as $service)
@@ -143,4 +122,9 @@ class Application
 	{
 		return $this->charset;
 	}
+    
+    public function getPath()
+    {
+        return $this->applicationPath;
+    }
 }

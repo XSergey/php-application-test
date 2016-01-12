@@ -146,7 +146,7 @@ return
                 'Test\Services\RouteService',
                 //'mako\application\services\URLBuilderService',
                 //'mako\application\services\LoggerService',
-                //'mako\application\services\ViewFactoryService',
+                'Test\Services\ViewFactoryService',
                 //'mako\application\services\SessionService',
                 //'mako\application\services\DatabaseService',
                 //'mako\application\services\RedisService',
